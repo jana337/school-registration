@@ -11,7 +11,7 @@
       font-family: 'Segoe UI', Tahoma, sans-serif;
       min-height: 100vh;
       background: #1a1a2e;
-      background-image: url('poster.jpg'); /* لما يجي البوستر غير هذا */
+      background-image: url('poster.jpg');
       background-size: cover;
       background-position: center;
       background-attachment: fixed;
@@ -19,19 +19,15 @@
 
     .overlay {
       min-height: 100vh;
-      background: rgba(0,0,0,0.5);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
+      background: rgba(0,0,0,0.4);
+      position: relative;
     }
 
-    /* ===== بوكس العداد والمؤقت ===== */
+    /* ===== العداد - زاوية يسار عليا ===== */
     .counter-box {
       position: fixed;
-      top: 20px;
-      left: 20px;
+      top: 24px;
+      left: 24px;
       background: rgba(255,255,255,0.15);
       backdrop-filter: blur(10px);
       border: 1px solid rgba(255,255,255,0.3);
@@ -39,369 +35,112 @@
       padding: 16px 24px;
       color: white;
       text-align: center;
-      cursor: move;
       z-index: 1000;
       min-width: 160px;
-      user-select: none;
     }
 
-    .counter-box .slots-number {
+    .slots-number {
       font-size: 48px;
       font-weight: bold;
       color: #FFD700;
       line-height: 1;
     }
 
-    .counter-box .slots-label {
-      font-size: 13px;
+    .slots-label {
+      font-size: 12px;
       opacity: 0.9;
       margin-top: 4px;
     }
 
-    .counter-box .timer {
+    .timer {
       margin-top: 10px;
-      font-size: 13px;
+      font-size: 12px;
       opacity: 0.8;
       border-top: 1px solid rgba(255,255,255,0.2);
       padding-top: 8px;
     }
 
-    .counter-box .timer-value {
+    .timer-value {
       font-size: 18px;
       font-weight: bold;
       color: #FF6B6B;
       direction: ltr;
     }
 
-    .drag-hint {
-      font-size: 10px;
-      opacity: 0.5;
-      margin-top: 6px;
+    /* ===== زر التسجيل ===== */
+    .register-btn-container {
+      position: fixed;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
     }
 
-    /* ===== الفورم ===== */
-    .form-container {
-      background: rgba(255,255,255,0.95);
-      border-radius: 20px;
-      padding: 36px;
-      width: 100%;
-      max-width: 480px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-    }
-
-    .form-title {
-      text-align: center;
-      font-size: 22px;
-      font-weight: bold;
+    .register-btn {
+      background: #FFD700;
       color: #1a1a2e;
-      margin-bottom: 6px;
-    }
-
-    .form-subtitle {
-      text-align: center;
-      font-size: 13px;
-      color: #666;
-      margin-bottom: 24px;
-    }
-
-    .notice {
-      background: #FFF3CD;
-      border-right: 4px solid #FFC107;
-      border-radius: 8px;
-      padding: 12px 14px;
-      font-size: 13px;
-      color: #856404;
-      margin-bottom: 20px;
-      line-height: 1.6;
-    }
-
-    .form-group {
-      margin-bottom: 16px;
-    }
-
-    label {
-      display: block;
-      font-size: 14px;
-      font-weight: 600;
-      color: #333;
-      margin-bottom: 6px;
-    }
-
-    input, select {
-      width: 100%;
-      padding: 11px 14px;
-      border: 1.5px solid #ddd;
-      border-radius: 10px;
-      font-size: 14px;
-      font-family: inherit;
-      transition: border-color 0.2s;
-      background: white;
-    }
-
-    input:focus, select:focus {
-      outline: none;
-      border-color: #1a1a2e;
-    }
-
-    select:disabled {
-      background: #f5f5f5;
-      color: #aaa;
-    }
-
-    .submit-btn {
-      width: 100%;
-      padding: 14px;
-      background: #1a1a2e;
-      color: white;
       border: none;
-      border-radius: 12px;
-      font-size: 16px;
+      border-radius: 50px;
+      padding: 18px 60px;
+      font-size: 20px;
       font-weight: bold;
       cursor: pointer;
-      margin-top: 8px;
-      transition: background 0.2s;
+      box-shadow: 0 8px 30px rgba(255,215,0,0.4);
+      transition: transform 0.2s, box-shadow 0.2s;
+      font-family: inherit;
+      text-decoration: none;
+      display: inline-block;
     }
 
-    .submit-btn:hover { background: #2d2d4e; }
-    .submit-btn:disabled { background: #aaa; cursor: not-allowed; }
-
-    .success-box {
-      display: none;
-      background: #d4edda;
-      border: 1px solid #c3e6cb;
-      border-radius: 12px;
-      padding: 20px;
-      text-align: center;
-      color: #155724;
-      margin-top: 16px;
-    }
-
-    .success-box h3 { margin-bottom: 8px; }
-    .success-box p { font-size: 13px; line-height: 1.6; }
-
-    .error-box {
-      display: none;
-      background: #f8d7da;
-      border: 1px solid #f5c6cb;
-      border-radius: 12px;
-      padding: 16px;
-      text-align: center;
-      color: #721c24;
-      margin-top: 16px;
-      font-size: 14px;
+    .register-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 12px 40px rgba(255,215,0,0.6);
     }
 
     .full-notice {
-      display: none;
-      text-align: center;
+      position: fixed;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255,0,0,0.8);
       color: white;
-      background: rgba(255,0,0,0.3);
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 20px;
-      font-size: 16px;
+      border-radius: 50px;
+      padding: 18px 60px;
+      font-size: 18px;
+      font-weight: bold;
+      display: none;
+      z-index: 1000;
     }
   </style>
 </head>
 <body>
 
-<!-- عداد المقاعد والمؤقت (قابل للسحب) -->
-<div class="counter-box" id="counterBox">
+<div class="overlay"></div>
+
+<!-- العداد -->
+<div class="counter-box">
   <div class="slots-number" id="slotsCount">--</div>
   <div class="slots-label">مقعد متبقي من أصل 20</div>
   <div class="timer">
     ⏳ ينتهي العرض خلال
     <div class="timer-value" id="timerDisplay">--:--:--</div>
   </div>
-  <div class="drag-hint">✥ اسحب لتغيير الموضع</div>
 </div>
 
-<div class="overlay">
-
+<!-- زر التسجيل -->
+<div class="register-btn-container">
+  <a href="form.html" class="register-btn" id="registerBtn">
+    🎒 سجل الآن واحجز مقعدك
+  </a>
   <div class="full-notice" id="fullNotice">
-    🎉 امتلأت المقاعد! شكراً لاهتمامكم
+    🎉 امتلأت المقاعد!
   </div>
-
-  <div class="form-container" id="formContainer">
-    <div class="form-title">🎒 التسجيل المبكر</div>
-    <div class="form-subtitle">احجز مقعدك والحصول على خصم 5% إضافي</div>
-
-    <div class="notice">
-      📌 الدفع يتم بزيارة المدرسة خلال ساعات العمل<br>
-      🕗 من 8:00 صباحاً حتى 2:00 ظهراً<br>
-      ⚠️ سيتم إلغاء الحجز تلقائياً إذا لم يتم الدفع في يوم العمل التالي
-    </div>
-
-    <div class="form-group">
-      <label>اسم ولي الأمر</label>
-      <input type="text" id="parent_name" placeholder="الاسم الكامل">
-    </div>
-
-    <div class="form-group">
-      <label>رقم التواصل</label>
-      <input type="tel" id="phone" placeholder="05xxxxxxxx">
-    </div>
-
-    <div class="form-group">
-      <label>اسم الطالب</label>
-      <input type="text" id="student_name" placeholder="الاسم الكامل">
-    </div>
-
-    <div class="form-group">
-      <label>سنة الميلاد</label>
-      <input type="number" id="birth_year" placeholder="مثال: 2018" min="2010" max="2024">
-    </div>
-
-    <div class="form-group">
-      <label>المرحلة الدراسية</label>
-      <select id="stage" onchange="updateTrackAndGrade()">
-        <option value="">-- اختر المرحلة --</option>
-        <option value="رياض الأطفال">رياض الأطفال</option>
-        <option value="ابتدائي">ابتدائي</option>
-      </select>
-    </div>
-
-    <div class="form-group">
-      <label>المسار</label>
-      <select id="track" disabled onchange="updateGrade()">
-        <option value="">-- اختر المسار --</option>
-      </select>
-    </div>
-
-    <div class="form-group">
-      <label>الصف</label>
-      <select id="grade" disabled>
-        <option value="">-- اختر الصف --</option>
-      </select>
-    </div>
-
-    <button class="submit-btn" id="submitBtn" onclick="submitForm()">
-      تسجيل الحجز
-    </button>
-
-    <div class="success-box" id="successBox">
-      <h3>✅ تم الحجز بنجاح!</h3>
-      <p id="successMsg"></p>
-    </div>
-
-    <div class="error-box" id="errorBox"></div>
-  </div>
-
 </div>
 
 <script>
-  // ===== رابط السكريبت =====
   const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzflk7sxkE580YVt0RjcXCb3_blabbCvKUk6Fuj_uwOPQLNW3M6FE40XlX5yolMK32BAw/exec';
-
-  // ===== تاريخ انتهاء العرض (غير هذا) =====
   const OFFER_END_DATE = new Date('2025-09-10T14:00:00');
 
-  // ===== منطق الفورم =====
-  function updateTrackAndGrade() {
-    const stage = document.getElementById('stage').value;
-    const track = document.getElementById('track');
-    const grade = document.getElementById('grade');
-
-    track.innerHTML = '<option value="">-- اختر المسار --</option>';
-    grade.innerHTML = '<option value="">-- اختر الصف --</option>';
-    grade.disabled = true;
-
-    if (stage === 'رياض الأطفال') {
-      track.disabled = false;
-      track.innerHTML += '<option value="عام">عام</option><option value="دولي">دولي</option>';
-    } else if (stage === 'ابتدائي') {
-      track.disabled = false;
-      track.innerHTML += '<option value="عام">عام</option><option value="دولي">دولي</option>';
-    } else {
-      track.disabled = true;
-    }
-  }
-
-  function updateGrade() {
-    const stage = document.getElementById('stage').value;
-    const grade = document.getElementById('grade');
-
-    grade.innerHTML = '<option value="">-- اختر الصف --</option>';
-
-    if (!stage) { grade.disabled = true; return; }
-
-    grade.disabled = false;
-    const maxGrade = stage === 'رياض الأطفال' ? 3 : 6;
-    for (let i = 1; i <= maxGrade; i++) {
-      grade.innerHTML += `<option value="${i}">الصف ${i}</option>`;
-    }
-  }
-
-  // ===== إرسال الفورم =====
-  async function submitForm() {
-    const fields = {
-      parent_name: document.getElementById('parent_name').value.trim(),
-      phone: document.getElementById('phone').value.trim(),
-      student_name: document.getElementById('student_name').value.trim(),
-      birth_year: document.getElementById('birth_year').value.trim(),
-      stage: document.getElementById('stage').value,
-      track: document.getElementById('track').value,
-      grade: document.getElementById('grade').value,
-    };
-
-    // تحقق من الحقول
-    for (const [key, val] of Object.entries(fields)) {
-      if (!val) {
-        showError('يرجى تعبئة جميع الحقول');
-        return;
-      }
-    }
-
-    const btn = document.getElementById('submitBtn');
-    btn.disabled = true;
-    btn.textContent = 'جاري التسجيل...';
-
-    try {
-      const response = await fetch(SCRIPT_URL, {
-        method: 'POST',
-        body: JSON.stringify(fields),
-      });
-
-      const result = await response.json();
-
-      if (result.success) {
-        document.getElementById('successBox').style.display = 'block';
-        document.getElementById('errorBox').style.display = 'none';
-
-        const deadline = new Date(result.deadline);
-        const deadlineStr = deadline.toLocaleDateString('ar-SA', {
-          weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
-        }) + ' - الساعة 2:00 ظهراً';
-
-        document.getElementById('successMsg').innerHTML = `
-          أنت المسجل رقم <strong>${result.slot}</strong> من أصل 20<br><br>
-          يرجى الحضور للمدرسة لإتمام الدفع بحلول:<br>
-          <strong>${deadlineStr}</strong><br><br>
-          ساعات الدفع: 8 صباحاً - 2 ظهراً<br>
-          ⚠️ سيتم إلغاء حجزك تلقائياً إن لم يتم الدفع في الموعد
-        `;
-
-        btn.textContent = 'تم التسجيل ✓';
-        updateSlots();
-      } else {
-        showError(result.message);
-        btn.disabled = false;
-        btn.textContent = 'تسجيل الحجز';
-      }
-    } catch (err) {
-      showError('حدث خطأ، يرجى المحاولة مرة أخرى');
-      btn.disabled = false;
-      btn.textContent = 'تسجيل الحجز';
-    }
-  }
-
-  function showError(msg) {
-    const box = document.getElementById('errorBox');
-    box.textContent = msg;
-    box.style.display = 'block';
-  }
-
-  // ===== العداد اللايف =====
   async function updateSlots() {
     try {
       const res = await fetch(SCRIPT_URL + '?action=getSlots');
@@ -409,13 +148,12 @@
       document.getElementById('slotsCount').textContent = data.availableSlots;
 
       if (data.availableSlots <= 0) {
+        document.getElementById('registerBtn').style.display = 'none';
         document.getElementById('fullNotice').style.display = 'block';
-        document.getElementById('formContainer').style.display = 'none';
       }
     } catch (e) {}
   }
 
-  // ===== المؤقت =====
   function updateTimer() {
     const now = new Date();
     const diff = OFFER_END_DATE - now;
@@ -434,46 +172,10 @@
       `${days}ي ${String(hours).padStart(2,'0')}:${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')}`;
   }
 
-  // ===== سحب العداد =====
-  const box = document.getElementById('counterBox');
-  let isDragging = false, startX, startY, boxX, boxY;
-
-  box.addEventListener('mousedown', (e) => {
-    isDragging = true;
-    startX = e.clientX - box.offsetLeft;
-    startY = e.clientY - box.offsetTop;
-  });
-
-  document.addEventListener('mousemove', (e) => {
-    if (!isDragging) return;
-    box.style.left = (e.clientX - startX) + 'px';
-    box.style.top = (e.clientY - startY) + 'px';
-    box.style.right = 'auto';
-  });
-
-  document.addEventListener('mouseup', () => isDragging = false);
-
-  // للموبايل
-  box.addEventListener('touchstart', (e) => {
-    isDragging = true;
-    startX = e.touches[0].clientX - box.offsetLeft;
-    startY = e.touches[0].clientY - box.offsetTop;
-  });
-
-  document.addEventListener('touchmove', (e) => {
-    if (!isDragging) return;
-    box.style.left = (e.touches[0].clientX - startX) + 'px';
-    box.style.top = (e.touches[0].clientY - startY) + 'px';
-    box.style.right = 'auto';
-  });
-
-  document.addEventListener('touchend', () => isDragging = false);
-
-  // ===== تشغيل =====
   updateSlots();
   updateTimer();
   setInterval(updateTimer, 1000);
-  setInterval(updateSlots, 30000); // يتحدث كل 30 ثانية
+  setInterval(updateSlots, 30000);
 </script>
 
 </body>
