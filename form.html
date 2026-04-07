@@ -179,7 +179,7 @@
     <select id="gender" onchange="updateStage()">
       <option value="">-- اختر --</option>
       <option value="طالب">طالب</option>
-      <option value="طالب">طالبة</option>
+      <option value="طالبة">طالبة</option>
     </select>
   </div>
 
@@ -268,11 +268,12 @@
     let maxGrade;
     if (stage === 'رياض الأطفال') {
       maxGrade = 3;
-    } else if (stage === 'ابتدائي' && gender === 'طالب') {
+      } else if (stage === 'ابتدائي' && gender === 'طالبة') {
       maxGrade = 6;
-    } else if (stage === 'ابتدائي' && gender === 'طالبة') {
+    } else if (stage === 'ابتدائي' && gender === 'طالب') {
       maxGrade = 3;
     }
+    
 
     for (let i = 1; i <= maxGrade; i++) {
       grade.innerHTML += `<option value="${i}">الصف ${i}</option>`;
