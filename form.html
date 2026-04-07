@@ -275,9 +275,20 @@
     }
     
 
-    const gradeNames = ['الأول', 'الثاني', 'الثالث', 'الرابع', 'الخامس', 'السادس'];
-for (let i = 1; i <= maxGrade; i++) {
-  grade.innerHTML += `<option value="${gradeNames[i-1]}">الصف ${gradeNames[i-1]}</option>`;
+   if (stage === 'رياض الأطفال') {
+  const track = document.getElementById('track').value;
+  if (track === 'عام') {
+    ['الأول', 'الثاني', 'الثالث'].forEach(m => {
+      grade.innerHTML += `<option value="مستوى ${m}">مستوى ${m}</option>`;
+    });
+  } else if (track === 'دولي') {
+    grade.innerHTML += `<option value="KG3">KG3</option>`;
+  }
+} else {
+  const gradeNames = ['الأول', 'الثاني', 'الثالث', 'الرابع', 'الخامس', 'السادس'];
+  for (let i = 1; i <= maxGrade; i++) {
+    grade.innerHTML += `<option value="${gradeNames[i-1]}">الصف ${gradeNames[i-1]}</option>`;
+  }
 }
   }
 
