@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>فورم التسجيل</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      min-height: 100vh;
+      background: #f0f4f8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .form-container {
+      background: white;
+      border-radius: 20px;
+      padding: 36px;
+      width: 100%;
+      max-width: 480px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+    }
+
+    .back-btn {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: #666;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .back-btn:hover { color: #1a1a2e; }
+
+    .form-title {
+      text-align: center;
+      font-size: 22px;
+      font-weight: bold;
+      color: #1a1a2e;
+      margin-bottom: 6px;
+    }
+
+    .form-subtitle {
+      text-align: center;
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 24px;
+    }
+
+    .notice {
+      background: #FFF3CD;
+      border-right: 4px solid #FFC107;
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-size: 13px;
+      color: #856404;
+      margin-bottom: 20px;
+      line-height: 1.7;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 6px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1.5px solid #ddd;
+      border-radius: 10px;
+      font-size: 14px;
+      font-family: inherit;
+      transition: border-color 0.2s;
+      background: white;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: #1a1a2e;
+    }
+
+    select:disabled {
+      background: #f5f5f5;
+      color: #aaa;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 14px;
+      background: #1a1a2e;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: background 0.2s;
+      font-family: inherit;
+    }
+
+    .submit-btn:hover { background: #2d2d4e; }
+    .submit-btn:disabled { background: #aaa; cursor: not-allowed; }
+
+    .success-box {
+      display: none;
+      background: #d4edda;
+      border: 1px solid #c3e6cb;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      color: #155724;
+      margin-top: 16px;
+    }
+
+    .success-box h3 { margin-bottom: 8px; }
+    .success-box p { font-size: 13px; line-height: 1.7; }
+
+    .error-box {
+      display: none;
+      background: #f8d7da;
+      border: 1px solid #f5c6cb;
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+      color: #721c24;
+      margin-top: 16px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="form-container">
+  <a href="index.html" class="back-btn">→ العودة للإعلان</a>
+
+  <div class="form-title">🎒 التسجيل المبكر</div>
+  <div class="form-subtitle">احجز مقعدك والحصول على خصم 5% إضافي</div>
+
+  <div class="notice">
+    📌 الدفع يتم بزيارة المدرسة خلال ساعات العمل<br>
+    🕗 من 8:00 صباحاً حتى 2:00 ظهراً (الأحد - الخميس)<br>
+    ⚠️ سيتم إلغاء الحجز تلقائياً إذا لم يتم الدفع في يوم العمل التالي
+  </div>
+
+  <div class="form-group">
+    <label>اسم ولي الأمر</label>
+    <input type="text" id="parent_name" placeholder="الاسم الكامل">
+  </div>
+
+  <div class="form-group">
+    <label>رقم التواصل</label>
+    <input type="tel" id="phone" placeholder="05xxxxxxxx">
+  </div>
+
+  <div class="form-group">
+    <label>اسم الطالب / الطالبة</label>
+    <input type="text" id="student_name" placeholder="الاسم الكامل">
+  </div>
+
+  <div class="form-group">
+    <label>سنة الميلاد</label>
+    <input type="number" id="birth_year" placeholder="مثال: 2018" min="2010" max="2024">
+  </div>
+
+  <div class="form-group">
+    <label>الجنس</label>
+    <select id="gender" onchange="updateStage()">
+      <option value="">-- اختر --</option>
+      <option value="ولد">ولد</option>
+      <option value="بنت">بنت</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label>المرحلة الدراسية</label>
+    <select id="stage" disabled onchange="updateTrack()">
+      <option value="">-- اختر المرحلة --</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label>المسار</label>
+    <select id="track" disabled onchange="updateGrade()">
+      <option value="">-- اختر المسار --</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label>الصف</label>
+    <select id="grade" disabled>
+      <option value="">-- اختر الصف --</option>
+    </select>
+  </div>
+
+  <button class="submit-btn" id="submitBtn" onclick="submitForm()">
+    تسجيل الحجز
+  </button>
+
+  <div class="success-box" id="successBox">
+    <h3>✅ تم الحجز بنجاح!</h3>
+    <p id="successMsg"></p>
+  </div>
+
+  <div class="error-box" id="errorBox"></div>
+</div>
+
+<script>
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzflk7sxkE580YVt0RjcXCb3_blabbCvKUk6Fuj_uwOPQLNW3M6FE40XlX5yolMK32BAw/exec';
+
+  function updateStage() {
+    const gender = document.getElementById('gender').value;
+    const stage = document.getElementById('stage');
+    const track = document.getElementById('track');
+    const grade = document.getElementById('grade');
+
+    stage.innerHTML = '<option value="">-- اختر المرحلة --</option>';
+    track.innerHTML = '<option value="">-- اختر المسار --</option>';
+    grade.innerHTML = '<option value="">-- اختر الصف --</option>';
+    track.disabled = true;
+    grade.disabled = true;
+
+    if (!gender) { stage.disabled = true; return; }
+
+    stage.disabled = false;
+    stage.innerHTML += '<option value="رياض الأطفال">رياض الأطفال</option>';
+    stage.innerHTML += '<option value="ابتدائي">ابتدائي</option>';
+  }
+
+  function updateTrack() {
+    const track = document.getElementById('track');
+    const grade = document.getElementById('grade');
+    const stage = document.getElementById('stage').value;
+
+    track.innerHTML = '<option value="">-- اختر المسار --</option>';
+    grade.innerHTML = '<option value="">-- اختر الصف --</option>';
+    grade.disabled = true;
+
+    if (!stage) { track.disabled = true; return; }
+
+    track.disabled = false;
+    track.innerHTML += '<option value="عام">عام</option>';
+    track.innerHTML += '<option value="دولي">دولي</option>';
+  }
+
+  function updateGrade() {
+    const gender = document.getElementById('gender').value;
+    const stage = document.getElementById('stage').value;
+    const grade = document.getElementById('grade');
+
+    grade.innerHTML = '<option value="">-- اختر الصف --</option>';
+
+    if (!stage) { grade.disabled = true; return; }
+
+    grade.disabled = false;
+
+    let maxGrade;
+    if (stage === 'رياض الأطفال') {
+      maxGrade = 3;
+    } else if (stage === 'ابتدائي' && gender === 'ولد') {
+      maxGrade = 3;
+    } else if (stage === 'ابتدائي' && gender === 'بنت') {
+      maxGrade = 6;
+    }
+
+    for (let i = 1; i <= maxGrade; i++) {
+      grade.innerHTML += `<option value="${i}">الصف ${i}</option>`;
+    }
+  }
+
+  async function submitForm() {
+    const fields = {
+      parent_name: document.getElementById('parent_name').value.trim(),
+      phone: document.getElementById('phone').value.trim(),
+      student_name: document.getElementById('student_name').value.trim(),
+      birth_year: document.getElementById('birth_year').value.trim(),
+      gender: document.getElementById('gender').value,
+      stage: document.getElementById('stage').value,
+      track: document.getElementById('track').value,
+      grade: document.getElementById('grade').value,
+    };
+
+    for (const [key, val] of Object.entries(fields)) {
+      if (!val) {
+        showError('يرجى تعبئة جميع الحقول');
+        return;
+      }
+    }
+
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.textContent = 'جاري التسجيل...';
+
+    try {
+      const response = await fetch(SCRIPT_URL, {
+        method: 'POST',
+        body: JSON.stringify(fields),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        document.getElementById('successBox').style.display = 'block';
+        document.getElementById('errorBox').style.display = 'none';
+
+        const deadline = new Date(result.deadline);
+        const deadlineStr = deadline.toLocaleDateString('ar-SA', {
+          weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+        }) + ' - الساعة 2:00 ظهراً';
+
+        document.getElementById('successMsg').innerHTML = `
+          أنت المسجل رقم <strong>${result.slot}</strong> من أصل 20<br><br>
+          يرجى الحضور للمدرسة لإتمام الدفع بحلول:<br>
+          <strong>${deadlineStr}</strong><br><br>
+          ساعات الدفع: 8 صباحاً - 2 ظهراً (الأحد - الخميس)<br>
+          ⚠️ سيتم إلغاء حجزك تلقائياً إن لم يتم الدفع في الموعد
+        `;
+
+        btn.textContent = 'تم التسجيل ✓';
+      } else {
+        showError(result.message);
+        btn.disabled = false;
+        btn.textContent = 'تسجيل الحجز';
+      }
+    } catch (err) {
+      showError('حدث خطأ، يرجى المحاولة مرة أخرى');
+      btn.disabled = false;
+      btn.textContent = 'تسجيل الحجز';
+    }
+  }
+
+  function showError(msg) {
+    const box = document.getElementById('errorBox');
+    box.textContent = msg;
+    box.style.display = 'block';
+  }
+</script>
+
+</body>
+</html>
